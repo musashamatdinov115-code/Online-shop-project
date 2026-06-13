@@ -1,9 +1,9 @@
 import type { AxiosResponse } from "axios";
-import type { typeContent } from "../utils/types";
+import type { TypeContent } from "../utils/types";
 import { apiClient } from "./api";
 
 
-export async function getApiProducts(): Promise<typeContent[]> {
-    const {data} = await apiClient.get<AxiosResponse<typeContent[]>>("/products")
+export async function getApiProducts(): Promise<TypeContent[]> {
+    const {data} = await apiClient.get<AxiosResponse<TypeContent[]>>("/products")
     return data.data
 }

@@ -1,4 +1,4 @@
-export interface  typeContent {
+export interface  TypeContent {
     category: string,
     createdAt : string,
     description: string,
