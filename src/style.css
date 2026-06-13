@@ -27,6 +27,10 @@ li {
   list-style: none;
 }
 
+label {
+  font-size: 15px;
+}
+
 .container {
   width: 100%;
   max-width: 1500px;
@@ -50,6 +54,12 @@ li {
   gap: 5px;
   color: var(--secondary);
   flex: 1;
+}
+
+.header-title p {
+  font-size: 18px;
+  font-weight: 600;
+
 }
 
 input {
@@ -94,6 +104,11 @@ input {
   border-radius: 8px;
   cursor: pointer;
   transition: all .1s ease-in;
+}
+
+.login {
+  display: flex;
+  gap: 5px;
 }
 
 .heart:hover,
@@ -252,6 +267,13 @@ h3 {
     padding: 6px;
     font-size: 15px;
   }
+
+  .header-title p {
+    font-size: 17px;
+    font-weight: 500;
+  }
+
+  
 }
 
 @media only screen and (max-width: 705px) {
@@ -260,7 +282,7 @@ h3 {
   }
 }
 
-@media only screen and (max-width: 678px) {
+@media only screen and (max-width: 774px) {
   .grid-card {
     grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
   }
@@ -301,6 +323,10 @@ h3 {
     display: flex;
     flex-direction: column;
     align-items: start;
+  }
+
+  .category  h3 {
+    margin-top: 20px;
   }
 
   .categories ul {
@@ -354,6 +380,30 @@ footer {
   right: 0;
 }
 
+.modal-overlay.show-login{
+  opacity: 1;
+  visibility: visible;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-overlay.show-register{
+  opacity: 1;
+  visibility: visible;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-overlay.show-sell-product{
+  opacity: 1;
+  visibility: visible;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .modal-content {
   position: absolute;
   top: 0;
@@ -366,6 +416,8 @@ footer {
   border-left: 2px solid var(--primary);
   transition: right .2s ease-in-out;
 }
+
+
 
 .text-modal {
   display: flex;
@@ -380,7 +432,7 @@ footer {
   font-size: 20px;
 }
 
-.text-modal .close-icon-modal {
+ .close-icon-modal {
   border: 1px solid var(--primary);
   border-radius: 5px;
   padding: 7px;
@@ -392,13 +444,13 @@ footer {
   color: rgb(97, 97, 97);
 }
 
-.text-modal .close-icon-modal:hover {
+ .close-icon-modal:hover {
   background-color: red;
   color: white;
   border-color: white;
 }
 
-.text-modal .close-icon-modal:active {
+ .close-icon-modal:active {
   background-color: rgb(192, 8, 8);
 }
 
@@ -520,3 +572,109 @@ footer {
   color: rgb(107, 123, 136);
 }
 
+.modal-verify{
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.modal-text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--primary);
+  padding: 20px;
+}
+
+.login-form {
+  /* margin-top: 20px; */
+  padding: 20px;
+}
+
+.form-input-login/*ham registerdin classi*/ input {
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  width: 400px;
+  height: 40px;
+  padding:0 10px;
+  margin-bottom: 15px;
+  margin-top: 5px;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 13px 0;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--secondary);
+  margin-top: 30px;
+  color: white;
+  cursor: pointer;
+}
+
+.login-btn:hover {
+  background-color: rgb(56, 47, 230);
+}
+
+.account {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 13px;
+  gap: 4px;
+  font-size: 13px;
+}
+
+.account .register-login {
+  color: blue;
+  cursor: pointer;
+}
+
+.account .register-login:hover {
+  color: rgba(0, 0, 255, 0.671);
+}
+
+.category-prices {
+  display: flex;
+  justify-content: space-between;
+}
+
+.category-prices input {
+  width: 180px;
+}
+
+textarea {
+  width: 100%;
+  height: 80px;
+  resize: none;
+  border-radius: 8px;
+  border: 1px solid var(--primary);
+  padding: 10px;
+  outline: none;
+  margin-bottom: 20px;
+  margin-top: 5px;
+}
+
+#file {
+  display: none;
+}
+
+label[for="file"] {
+    cursor: pointer;
+    border: 2px dashed var(--primary);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    padding: 25px;
+    margin-top: 5px;
+}
+
+label i {
+  font-size: 20px;
+  color: var(--secondary);
+}

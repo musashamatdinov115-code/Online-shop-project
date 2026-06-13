@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <div class="modal-overlay" id="favorite-modal">
+  <div class="modal-overlay" id="favorite-modal"> <!--show-fav-->
 
     <div class="modal-content">
       <div class="text-modal">
@@ -41,7 +41,7 @@
     </div>
   </div>
 
-  <div class="modal-overlay" id="cart-modal">
+  <div class="modal-overlay" id="cart-modal"> <!--show-cart-->
     <div class="modal-content">
       <div class="text-modal">
         <p>Cart</p>
@@ -67,7 +67,7 @@
             <div class="delete"><i class="fa-solid fa-trash"></i></div>
           </div>
         </div>
-        
+
       </div>
       <div class="favorite-content-modal">
         <div class="img-content-modal">
@@ -87,7 +87,105 @@
             <div class="delete"><i class="fa-solid fa-trash"></i></div>
           </div>
         </div>
-        
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay "> <!--show-login-->
+    <div class="modal-verify">
+      <div class="modal-text">
+        <h3>Welcome back</h3>
+        <div class="close-icon-modal">
+          <i class="fa-solid fa-xmark"></i>
+        </div>
+      </div>
+
+      <div class="login-form">
+        <form class="form-input-login" id="form-input-login">
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" placeholder="you@example.com" required>
+
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" placeholder="•••••••" required>
+
+          <button class="login-btn">Login</button>
+          <div class="account">
+            <p>No account?</p>
+            <p class="register-login" id="register">Register</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay"> <!--show-register-->
+    <div class="modal-verify">
+      <div class="modal-text">
+        <h3>Create account</h3>
+        <div class="close-icon-modal">
+          <i class="fa-solid fa-xmark"></i>
+        </div>
+      </div>
+
+      <div class="login-form">
+        <form class="form-input-login" id="form-input-login">
+          <label for="name">Name</label>
+          <input type="text" name="name" id="name" placeholder="Your Name" required>
+
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" placeholder="you@example.com" required>
+
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" placeholder="•••••••" required>
+
+          <button class="login-btn">Create account</button>
+          <div class="account">
+            <p>Already registered?</p>
+            <p class="register-login" id="Login">Login</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay show-sell-product"> <!--show-register-->
+    <div class="modal-verify">
+      <div class="modal-text">
+        <h3>Sell a product</h3>
+        <div class="close-icon-modal">
+          <i class="fa-solid fa-xmark"></i>
+        </div>
+      </div>
+
+      <div class="login-form">
+        <form class="form-input-login" id="form-input-login">
+          <label for="title">Title</label>
+          <input type="text" name="title" id="title" placeholder="Enter product name" required>
+
+          <div class="category-prices">
+            <div class="category-product">
+              <label for="category">Category</label>
+              <input type="text" name="category" id="category" placeholder="Enter category name" required>
+            </div>
+            <div class="price">
+              <label for="price">Price($)</label>
+              <input type="number" name="price" id="price" placeholder="0.00" required>
+            </div>
+          </div>
+
+          <p class="description">Description</p>
+          <textarea name="description" id="description" placeholder="Optional"></textarea>
+
+          <p>Image</p>
+          <input type="file" class="file-upload" name="file" id="file" required>
+          <label for="file"><i class="fa-solid fa-cloud-arrow-up"></i><p> Click to upload an image</p></label>
+
+          <button class="login-btn">Submit for review</button>
+          <div class="account">
+            <p>An admin will review it before it goes live.</p>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -97,7 +195,7 @@
       <div class="header-content">
         <div class="header-title">
           <div class="shop"><i class="fa-solid fa-bag-shopping"></i> </div>
-          <h3> Online-shop</h3>
+          <p> Online-shop</p>
         </div>
 
         <div class="search-input">
@@ -106,8 +204,21 @@
         </div>
 
         <div class="saves">
-          <button class="heart"><i class="fa-regular fa-heart"></i> </button>
-          <button class="shopping"><i class="fa-solid fa-cart-shopping"></i></button>
+          <button class="add-card heart" id="add-new">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <button class="heart" id="my-favorites">
+            <i class="fa-regular fa-heart"></i>
+          </button>
+          <button class="shopping" id="shop-product">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </button>
+          <button class="login heart" id="login-user">
+            <div class="user">
+              <i class="fa-solid fa-user"></i>
+            </div>
+            <p>Login</p>
+          </button>
         </div>
 
       </div>
