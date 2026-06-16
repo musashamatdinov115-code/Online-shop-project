@@ -179,7 +179,9 @@
 
           <p>Image</p>
           <input type="file" class="file-upload" name="file" id="file" required>
-          <label for="file"><i class="fa-solid fa-cloud-arrow-up"></i><p> Click to upload an image</p></label>
+          <label for="file"><i class="fa-solid fa-cloud-arrow-up"></i>
+            <p> Click to upload an image</p>
+          </label>
 
           <button class="login-btn">Submit for review</button>
           <div class="account">
@@ -195,13 +197,15 @@
       <div class="header-content">
         <div class="header-title">
           <div class="shop"><i class="fa-solid fa-bag-shopping"></i> </div>
-          <p> Online-shop</p>
+          <p>Online-shop</p>
         </div>
 
-        <div class="search-input">
-          <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-          <input type="text" name="title" placeholder="Search products...">
-        </div>
+        <form id="form-input">
+          <div class="search-input">
+            <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <input class="search" type="text" name="title" placeholder="Search products...">
+          </div>
+        </form>
 
         <div class="saves">
           <button class="add-card heart" id="add-new">
@@ -228,12 +232,12 @@
         <div class="category">
           <h3>Products</h3>
           <div class="categories">
-            <ul>
-              <li class="All">All</li>
-              <li>Electronics</li>
-              <li>Accessories</li>
-              <li>Clothing</li>
-              <li>Home</li>
+            <ul id="category-list">
+              <li class="category-item category-select" data-category="All">All</li>
+              <li class="category-item" data-category="Electronics">Electronics</li>
+              <li class="category-item" data-category="Accessories">Accessories</li>
+              <li class="category-item" data-category="Clothing">Clothing</li>
+              <li class="category-item" data-category="Home">Home</li>
             </ul>
           </div>
         </div>

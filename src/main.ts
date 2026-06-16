@@ -1,23 +1,43 @@
-import { getApiProducts } from "./api/products";
+import { apiClient } from "./api/api";
+import { getCategories, getcategory } from "./api/product-category";
+import { getProducts } from "./api/utils";
 import type { TypeContent } from "./utils/types";
 
 const cartRender = document.querySelector("#grid-card") as HTMLDivElement
+const filterBtn = document.querySelectorAll(".category-item")
+const searchInput = document.querySelector(".search")
 
-async function getProducts() {
-    try {
-        const data = await getApiProducts()
-        renderProducts(data);
-        
-    } catch (error) {
-        console.log(error);
-        
+searchInput?.addEventListener("input", async (e: Event) => {
+  searchInput.innerHTML = "Product not found"
+  const target = e.target as HTMLInputElement
+  const value: string = target.value.trim()
+  const { data } = await apiClient.get(`/products?q=${value}`)
+  renderProducts(data.data);
+})
+
+filterBtn.forEach(item => {
+  item.addEventListener("click", (e) => {
+    filterBtn.forEach(button => button.classList.remove("category-select"))
+    item.classList.add("category-select")
+    const target = e.target as HTMLLIElement
+    const selectedCategory = target.dataset.category
+    if (selectedCategory) {
+      getcategory(selectedCategory)
     }
-}
+  })
+})
 
-function renderProducts(products : TypeContent[]) {
-    cartRender.innerHTML = ""
-    products.forEach(data => {
-        cartRender.innerHTML += `
+export function renderProducts(products: TypeContent[]) {
+  cartRender.innerHTML = ""
+  if(products.length === 0) {
+    cartRender.innerHTML = `
+      <div class="not-found"> 
+        <p>Product not found</p>
+      </div>
+    `
+  }
+  products.forEach((data: TypeContent) => {
+    cartRender.innerHTML += `
         <div class="product-card" id="product-card">
             <div class="heart-cart"><i class="fa-regular fa-heart"></i></div>
             <div class="img-card"> <img src="${data.imageUrl}" alt=""> </div>
@@ -34,7 +54,7 @@ function renderProducts(products : TypeContent[]) {
             </div>
           </div>
         `
-    });
-} 
-
+  });
+}
 getProducts()
+getCategories()

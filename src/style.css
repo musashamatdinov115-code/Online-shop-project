@@ -162,7 +162,7 @@ h3 {
   transform: scale(.98);
 }
 
-.All {
+.category-select {
   background-color: var(--secondary);
   color: white;
 }
@@ -177,7 +177,6 @@ h3 {
 }
 
 .product-card {
-  /* width: 100%; */
   border: 1px solid var(--primary);
   border-radius: 8px;
   position: relative;
@@ -279,10 +278,6 @@ h3 {
   .title .text-product {
     font-size: 12px;
   }
-
-  /* .title .title-product {
-    font-size: 11px;
-  } */
 }
 
 @media only screen and (max-width: 705px) {
@@ -691,3 +686,15 @@ label i {
   font-size: 20px;
   color: var(--secondary);
 }
+
+/* .not-found {
+position: absolute;
+top: 50%;
+bottom: 50%;
+left: 45%;
+}
+
+.not-found p {
+  font-size: 20px;
+  color: gray;
+} */

@@ -18,3 +18,23 @@ export interface  TypeContent {
     title : string,
     updatedAt:string
 }
+
+export interface TypeCategory {
+    success : boolean,
+    data : TypeContent[]
+}
+
+export interface TypeCategories {
+    success : boolean,
+    data : string[]
+}
+
+ export interface SearchResponse {
+    success: boolean;
+    data: TypeContent[];
+    meta?: {
+        page: number;
+        limit: number;
+        total: number;
+    };
+}
