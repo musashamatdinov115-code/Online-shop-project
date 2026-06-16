@@ -233,7 +233,7 @@ h3 {
 .title .shop {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: end;
 }
 
 .title .shop .price {
@@ -313,7 +313,7 @@ h3 {
     width: auto;
   }
 
-  .search-input {
+  .form-input {
     width: 100%;
     order: 3;
     margin-right: 0;
@@ -687,7 +687,7 @@ label i {
   color: var(--secondary);
 }
 
-/* .not-found {
+.not-found {
 position: absolute;
 top: 50%;
 bottom: 50%;
@@ -697,4 +697,4 @@ left: 45%;
 .not-found p {
   font-size: 20px;
   color: gray;
-} */
+}
