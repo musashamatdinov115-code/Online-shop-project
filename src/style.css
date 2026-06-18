@@ -12,7 +12,6 @@
 img {
   width: 100%;
   object-fit: cover;
-  height: 200px;
 }
 
 :root {
@@ -105,20 +104,53 @@ input {
   border-radius: 8px;
   cursor: pointer;
   transition: all .1s ease-in;
+  position: relative;
+}
+
+.heart p,
+.shopping p {
+  position: absolute;
+  top: -3px;
+  right: -4px;
+  border-radius: 50%;
+  background-color: var(--secondary);
+  width: 15px;
+  height: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
 }
 
 .login {
   display: flex;
   gap: 5px;
+  padding: 9px 10px;
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all .1s ease-in;
+}
+
+.add-card {
+  padding: 9px 10px;
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all .1s ease-in;
 }
 
 .heart:hover,
-.shopping:hover {
+.shopping:hover,
+.login:hover,
+.add-card:hover {
   background-color: rgba(128, 128, 128, 0.596);
 }
 
 .heart:active,
-.shopping:active {
+.shopping:active,
+.login:active,
+.add-card:active {
   transform: scale(.90);
 }
 
@@ -176,6 +208,10 @@ h3 {
   margin: 20px auto;
 }
 
+.grid-card img {
+  height: 200px;
+}
+
 .product-card {
   border: 1px solid var(--primary);
   border-radius: 8px;
@@ -184,6 +220,7 @@ h3 {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  height: 100%;
 }
 
 .heart-cart {
@@ -198,7 +235,6 @@ h3 {
   top: 10px;
   right: 10px;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
   color: rgb(107, 123, 136);
 }
 
@@ -233,7 +269,7 @@ h3 {
 .title .shop {
   display: flex;
   justify-content: space-between;
-  align-items: end;
+  align-items: center;
 }
 
 .title .shop .price {
@@ -269,13 +305,16 @@ h3 {
   .title .shop .btn-add {
     padding: 6px;
     font-size: 15px;
+
   }
 
   .header-title p {
     font-size: 17px;
     font-weight: 500;
   }
+
   .title .text-product {
+    height: 40px;
     font-size: 12px;
   }
 }
@@ -298,6 +337,7 @@ h3 {
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 15px;
+    flex-direction: row;
   }
 
   .header-title {
@@ -317,6 +357,10 @@ h3 {
     width: 100%;
     order: 3;
     margin-right: 0;
+  }
+
+  .form-input .search-input {
+    width: 100%;
   }
 
   main {
@@ -445,7 +489,6 @@ footer {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  transition: all 0.1s ease;
   color: rgb(97, 97, 97);
 }
 
@@ -573,7 +616,6 @@ footer {
   bottom: 0px;
   right: -90px;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
   color: rgb(107, 123, 136);
 }
 
@@ -688,10 +730,10 @@ label i {
 }
 
 .not-found {
-position: absolute;
-top: 50%;
-bottom: 50%;
-left: 45%;
+  position: absolute;
+  top: 50%;
+  bottom: 50%;
+  left: 45%;
 }
 
 .not-found p {

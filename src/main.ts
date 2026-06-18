@@ -1,13 +1,24 @@
 import { apiClient } from "./api/api";
-// import { getCategories, getcategory } from "./api/product-category";
+import { getCategories, getcategory } from "./api/product-category";
 import { getProducts } from "./api/utils";
-import type { TypeCategories, TypeContent } from "./utils/types";
+import type { TypeContent } from "./utils/types";
 
 const cartRender = document.querySelector("#grid-card") as HTMLDivElement
-const filterBtn = document.querySelectorAll(".category-item")
 const searchInput = document.querySelector(".search")
 const categoryBtn = document.querySelector("#category-list") as HTMLUListElement
+const showAddModal = document.querySelector("#sell-modal")
+const showCardModal = document.querySelector("#cart-modal")
+const showFavModal = document.querySelector("#favorite-modal")
+const showLaRModal = document.querySelector("#sell-modal")
 
+const showNewcard = document.querySelector("#add-new")
+const closeSellModal = document.querySelector("#close-icon-modal-sell")
+
+const showProductShop = document.querySelector("#shop-product")
+const closeCardModal = document.querySelector("#close-icon-modal-card")
+
+const showFavourite = document.querySelector("#my-favorites")
+const closeFavModal = document.querySelector("#close-icon-modal-fav")
 
 searchInput?.addEventListener("input", async (e: Event) => {
   searchInput.innerHTML = "Product not found"
@@ -17,39 +28,38 @@ searchInput?.addEventListener("input", async (e: Event) => {
   renderProducts(data.data);
 })
 
-function renderCategory () {
+async function renderCategory() {
   categoryBtn.innerHTML += `
     <li class="category-item category-select" data-category="All">All</li>
     `
+
+  const categories = await getCategories()
+  categories.forEach((item: string) => {
+    categoryBtn.innerHTML += `
+    <li class="category-item" data-category="${item}">${item}</li>
+      `
+  })
+
+
+  const filterBtn = document.querySelectorAll(".category-item")
+
   filterBtn.forEach((item) => {
-    
-    item.addEventListener("click", (e) => {
-      filterBtn.forEach(item => item.classList.remove("category-select"))
+    item.addEventListener("click", async (e) => {
+      filterBtn.forEach(btn => btn.classList.remove("category-select"))
       item.classList.add("category-select")
       const target = e.target as HTMLLIElement
-      console.log(target);
-      
+      const selectedCategory = target.dataset.category
+      if (selectedCategory) {
+        await getcategory(selectedCategory)
+      }
     })
   })
 }
-
 renderCategory()
-
-// filterBtn.forEach(item => {
-//   item.addEventListener("click", (e) => {
-//     filterBtn.forEach(button => button.classList.remove("category-select"))
-//     item.classList.add("category-select")
-//     const target = e.target as HTMLLIElement
-//     const selectedCategory = target.dataset.category
-//     if (selectedCategory) {
-//       getcategory(selectedCategory)
-//     }
-//   })
-// })
 
 export function renderProducts(products: TypeContent[]) {
   cartRender.innerHTML = ""
-  if(products.length === 0) {
+  if (products.length === 0) {
     cartRender.innerHTML = `
       <div class="not-found"> 
         <p>Product not found</p>
@@ -77,3 +87,27 @@ export function renderProducts(products: TypeContent[]) {
   });
 }
 getProducts()
+
+
+showNewcard?.addEventListener("click", () => {
+  showAddModal?.classList.add("show-sell-product")
+})
+closeSellModal?.addEventListener("click" , () => {
+  showAddModal?.classList.remove("show-sell-product")
+})
+
+showProductShop?.addEventListener("click", () => {
+  showCardModal?.classList.add("show-cart")
+})
+closeCardModal?.addEventListener("click" , () => {
+  showCardModal?.classList.remove("show-cart")
+})
+
+showFavourite?.addEventListener("click", () => {
+  showFavModal?.classList.add("show-fav")
+})
+closeFavModal?.addEventListener("click" , () => {
+  showFavModal?.classList.remove("show-fav")
+})
+
+

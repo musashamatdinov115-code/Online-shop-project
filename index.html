@@ -19,7 +19,7 @@
     <div class="modal-content">
       <div class="text-modal">
         <p>Favorites</p>
-        <div class="close-icon-modal">
+        <div class="close-icon-modal" id="close-icon-modal-fav">
           <i class="fa-solid fa-xmark"></i>
         </div>
       </div>
@@ -45,7 +45,7 @@
     <div class="modal-content">
       <div class="text-modal">
         <p>Cart</p>
-        <div class="close-icon-modal">
+        <div class="close-icon-modal" id="close-icon-modal-card">
           <i class="fa-solid fa-xmark"></i>
         </div>
       </div>
@@ -92,7 +92,7 @@
     </div>
   </div>
 
-  <div class="modal-overlay "> <!--show-login-->
+  <div class="modal-overlay " id="LnR-modal"> <!--show-LnR-->
     <div class="modal-verify">
       <div class="modal-text">
         <h3>Welcome back</h3>
@@ -117,9 +117,6 @@
         </form>
       </div>
     </div>
-  </div>
-
-  <div class="modal-overlay"> <!--show-register-->
     <div class="modal-verify">
       <div class="modal-text">
         <h3>Create account</h3>
@@ -149,11 +146,11 @@
     </div>
   </div>
 
-  <div class="modal-overlay"> <!--show-sell-product-->
+  <div class="modal-overlay" id="sell-modal"> <!--show-sell-product-->
     <div class="modal-verify">
       <div class="modal-text">
         <h3>Sell a product</h3>
-        <div class="close-icon-modal">
+        <div class="close-icon-modal" id="close-icon-modal-sell">
           <i class="fa-solid fa-xmark"></i>
         </div>
       </div>
@@ -200,7 +197,7 @@
           <p>Online-shop</p>
         </div>
 
-        <form id="form-input">
+        <form id="form-input" class="form-input">
           <div class="search-input">
             <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>
             <input class="search" type="text" name="title" placeholder="Search products...">
@@ -208,16 +205,18 @@
         </form>
 
         <div class="saves">
-          <button class="add-card heart" id="add-new">
+          <button class="add-card" id="add-new">
             <i class="fa-solid fa-plus"></i>
           </button>
           <button class="heart" id="my-favorites">
+            <p>0</p>
             <i class="fa-regular fa-heart"></i>
           </button>
           <button class="shopping" id="shop-product">
+            <p>0</p>
             <i class="fa-solid fa-cart-shopping"></i>
           </button>
-          <button class="login heart" id="login-user">
+          <button class="login" id="login-user">
             <div class="user">
               <i class="fa-solid fa-user"></i>
             </div>
