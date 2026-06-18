@@ -428,7 +428,7 @@ footer {
   visibility: visible;
 }
 
-.modal-overlay.show-fav .favorite-content-modal {
+.modal-overlay.show-fav .modal-content {
   right: 0;
 }
 
@@ -437,7 +437,7 @@ footer {
   visibility: visible;
 }
 
-.modal-overlay.show-cart .cart-content-modal {
+.modal-overlay.show-cart .modal-content {
   right: 0;
 }
 
@@ -468,8 +468,7 @@ footer {
 .modal-content {
   position: absolute;
   top: 0;
-  right: 0px;
-  /*right -400px boladi*/
+  right: -400px;
   width: 400px;
   height: 100%;
   background-color: white;
@@ -478,8 +477,6 @@ footer {
   border-left: 2px solid var(--primary);
   transition: right .2s ease-in-out;
 }
-
-
 
 .text-modal {
   display: flex;
@@ -631,6 +628,8 @@ footer {
   cursor: pointer;
   color: rgb(107, 123, 136);
 }
+
+
 
 .modal-verify {
   display: flex;
