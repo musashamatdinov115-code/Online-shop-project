@@ -92,11 +92,31 @@
     </div>
   </div>
 
-  <div class="modal-overlay" id="LnR-modal"> <!--s how-LnR-->
+  <div class="modal-overlay" id="LnR-modal"> <!--show-LnR-->
     <div class="modal-verify " id="modal-verify">
       <!-- login and register -->
     </div>
-    
+
+  </div>
+
+
+  <div class="modal-overlay" id="before-login"> <!-- show-profile -->
+    <div class="profile-modal">
+      <div class="name-modal">
+        <p>Mark</p>
+        <p>mark@gmail.com</p>
+      </div>
+      <div class="profile-info">
+        <div class="my-products">
+          <div class="products-icon"><i class="fa-solid fa-box"></i></div>
+          <p>My products</p>
+        </div>
+        <div class="logout my-products">
+          <div class="logout-icon"><i class="fa-solid fa-right-from-bracket"></i></div>
+          <p>Logout</p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="modal-overlay" id="sell-modal"> <!--show-sell-product-->
@@ -175,6 +195,33 @@
             </div>
             <p>Login</p>
           </button>
+          <button class="btn-profile" id="profile-button">
+            <div class="profile-before">
+              <p id="profile-icon" class="profile-icon">M</p>
+              <p id="profile-name" class="profile-name">Mark</p>
+              <div class="arrow-icon" id="arrow-icon">
+                <i class="fa-solid fa-angle-up"></i>
+              </div>
+            </div>
+          </button>
+          <div class="modal-overlay show-profil" id="before-login"> <!-- show-profile -->
+            <div class="profile-modal">
+              <div class="name-modal">
+                <p class="user">Mark</p>
+                <p class="email">mark@gmail.com</p>
+              </div>
+              <div class="profile-info">
+                <div class="my-products">
+                  <div class="products-icon"><i class="fa-solid fa-box"></i></div>
+                  <p>My products</p>
+                </div>
+                <div class="logout my-products">
+                  <div class="logout-icon"><i class="fa-solid fa-right-from-bracket"></i></div>
+                  <p>Logout</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>
