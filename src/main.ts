@@ -20,7 +20,10 @@ const showLnRBtn = document.querySelector("#login-user") as HTMLDivElement
 const lnRModal = document.querySelector("#LnR-modal") as HTMLDivElement
 const profileBtn = document.querySelector("#profile-button") as HTMLButtonElement
 const arrow = document.querySelector("#arrow-icon") as HTMLDivElement
+const myProducts = document.querySelector("#my-products") as HTMLButtonElement
+const beforeLogin = document.querySelector("#before-login") as HTMLDivElement
 
+const showMyProducts = document.querySelector("#products-modal") as HTMLDivElement
 const showNewcard = document.querySelector("#add-new") as HTMLDivElement
 const showProductShop = document.querySelector("#shop-product") as HTMLDivElement
 const showFavourite = document.querySelector("#my-favorites") as HTMLDivElement
@@ -116,7 +119,7 @@ allCloseBtn.forEach((button): void => {
     const currentModal = button.closest(".modal-overlay")
     if (currentModal) {
       currentModal.classList.forEach((item): void => {
-        if (item.includes("show-sell-product") || item.includes("show-cart") || item.includes("show-fav") || item.includes("show-login")) {
+        if (item.includes("show-sell-product") || item.includes("show-cart") || item.includes("show-fav") || item.includes("show-login") || item.includes("show-products")) {
           currentModal.classList.remove(item)
         }
       })
@@ -179,6 +182,7 @@ function renderLModal(): void {
           boxShadow: "0 4px 12px rgba(0,0,0,0.1)"
         }
       }).showToast();
+      
       lnRModal.classList.remove("show-login")
     } else {
       Toastify({
@@ -286,7 +290,7 @@ document.addEventListener("click", (e:MouseEvent) => {
   const target = e.target as HTMLElement
   const clickModal = target.closest(".modal-overlay") as HTMLDivElement
   if(clickModal) {
-    const insideCart = target.closest(".profile-modal, .modal-verify, profile-modal, modal-content")
+    const insideCart = target.closest(".profile-modal, .modal-verify, .profile-modal, .modal-content")
     if(!insideCart){
       clickModal.classList.forEach((className) => {
         if(className.startsWith("show-")) {
@@ -299,3 +303,9 @@ document.addEventListener("click", (e:MouseEvent) => {
    
   
 })
+
+myProducts?.addEventListener("click", () => {
+  showMyProducts?.classList.add("show-products")
+  beforeLogin.classList.remove("show-profile")
+})
+

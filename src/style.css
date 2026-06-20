@@ -124,7 +124,8 @@ input {
 }
 
 .login {
-  display: none; /*flex boladi*/
+  display: flex; /*flex boladi*/
+  align-items: center;
   gap: 5px;
   padding: 9px 10px;
   border: 1px solid var(--primary);
@@ -134,7 +135,7 @@ input {
 }
 
 .btn-profile {
-  display: flex;
+  display: none;
   gap: 5px;
   padding: 5px 10px;
   border: 1px solid var(--primary);
@@ -249,7 +250,9 @@ input {
 .heart:active,
 .shopping:active,
 .login:active,
-.add-card:active {
+.add-card:active,
+.edit:active,
+.product-btns .delete:active {
   transform: scale(.90);
 }
 
@@ -589,6 +592,18 @@ footer {
   top: 70px;
 }
 
+.modal-overlay.show-products {
+  opacity: 1;
+  visibility: visible;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-overlay.show-products .modal-content {
+  right: 0;
+}
+
 .modal-content {
   position: absolute;
   top: 0;
@@ -692,6 +707,16 @@ footer {
   font-weight: 500;
 }
 
+.title-content-modal .pending-approved {
+  border-radius: 100px;
+  padding: 4px 10px;
+  background-color: #FEF3C7;
+  color: #B45309;
+  font-weight: 600;
+  width: 45%;
+  font-size: 12px;
+}
+
 .df-card {
   display: flex;
   justify-content: space-between;
@@ -738,7 +763,7 @@ footer {
   background: transparent;
 }
 
-.delete {
+.df-card .delete {
   border: 1px solid var(--primary);
   display: inline-flex;
   align-items: center;
@@ -875,4 +900,32 @@ label i {
 .not-found p {
   font-size: 20px;
   color: gray;
+}
+
+.product-btns {
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.product-btns button {
+  display: flex;
+  gap: 5px;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #64748B;
+  padding: 10px;
+  letter-spacing: 1px;
+  transition: all .2s ease;
+}
+
+.product-btns .edit:hover {
+  border-color: #4F46E5;
+  color: #4F46E5;
+} 
+
+.product-btns .delete:hover {
+  border-color: red;
+  color: red;
 }

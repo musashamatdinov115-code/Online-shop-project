@@ -92,31 +92,37 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="products-modal"> <!--show-products-->
+    <div class="modal-content">
+      <div class="text-modal">
+        <p>My products</p>
+        <div class="close-icon-modal" id="close-icon-modal-products">
+          <i class="fa-solid fa-xmark"></i>
+        </div>
+      </div>
+      <div class="favorite-content-modal">
+        <div class="img-content-modal">
+          <img src="https://picsum.photos/500" alt="">
+        </div>
+        <div class="title-content-modal fav">
+          <p class="text">Smart watch series 8</p>
+          <p>Electronics · $698.00</p>  
+          <p class="pending-approved" id="verify-product">PENDING</p>         
+          <div class="product-btns">     
+            <button class="edit"><i class="fa-solid fa-pen"></i><p>Edit</p></button>
+           <button class="delete"><i class="fa-solid fa-trash"></i><p>Delete</p></button>   
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <div class="modal-overlay" id="LnR-modal"> <!--show-LnR-->
     <div class="modal-verify " id="modal-verify">
       <!-- login and register -->
     </div>
 
-  </div>
-
-
-  <div class="modal-overlay" id="before-login"> <!-- show-profile -->
-    <div class="profile-modal">
-      <div class="name-modal">
-        <p>Mark</p>
-        <p>mark@gmail.com</p>
-      </div>
-      <div class="profile-info">
-        <div class="my-products">
-          <div class="products-icon"><i class="fa-solid fa-box"></i></div>
-          <p>My products</p>
-        </div>
-        <div class="logout my-products">
-          <div class="logout-icon"><i class="fa-solid fa-right-from-bracket"></i></div>
-          <p>Logout</p>
-        </div>
-      </div>
-    </div>
   </div>
 
   <div class="modal-overlay" id="sell-modal"> <!--show-sell-product-->
@@ -204,14 +210,14 @@
               </div>
             </div>
           </button>
-          <div class="modal-overlay show-profil" id="before-login"> <!-- show-profile -->
+          <div class="modal-overlay" id="before-login"> <!-- show-profile -->
             <div class="profile-modal">
               <div class="name-modal">
                 <p class="user">Mark</p>
                 <p class="email">mark@gmail.com</p>
               </div>
               <div class="profile-info">
-                <div class="my-products">
+                <div class="my-products" id="my-products">
                   <div class="products-icon"><i class="fa-solid fa-box"></i></div>
                   <p>My products</p>
                 </div>
