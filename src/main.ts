@@ -1,10 +1,13 @@
+import { getMyProducts, NewProduct } from "./api/product/new-product";
 import { apiClient } from "./api/api";
-import { loginPost, registerPost } from "./api/auth";
-import { getCategories, getcategory } from "./api/product-category";
-import { getProducts } from "./api/utils";
-import type { TypeContent } from "./utils/types";
+import { loginPost, registerPost } from "./api/auth/auth";
+import { getFavorites, toggleLike } from "./api/favorites/favorites";
+import { getCategories, getcategory } from "./api/product/product-category";
+import { checkUser, getProducts } from "./api/other/utils";
+import type { FavoriteProduct, Product, TypeContent } from "./utils/types";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
+import { deleteProductId } from "./api/product/delete-product";
 
 
 
@@ -20,13 +23,19 @@ const showLnRBtn = document.querySelector("#login-user") as HTMLDivElement
 const lnRModal = document.querySelector("#LnR-modal") as HTMLDivElement
 const profileBtn = document.querySelector("#profile-button") as HTMLButtonElement
 const arrow = document.querySelector("#arrow-icon") as HTMLDivElement
-const myProducts = document.querySelector("#my-products") as HTMLButtonElement
+const myProducts = document.querySelector("#my-products") as HTMLDivElement
 const beforeLogin = document.querySelector("#before-login") as HTMLDivElement
+const quantityCount = document.querySelector("#quantity-count") as HTMLDivElement
+const logoutBtn = document.querySelector(".logout")
+const formSell = document.querySelector("#form-input-sell") as HTMLFormElement
+
 
 const showMyProducts = document.querySelector("#products-modal") as HTMLDivElement
 const showNewcard = document.querySelector("#add-new") as HTMLDivElement
 const showProductShop = document.querySelector("#shop-product") as HTMLDivElement
 const showFavourite = document.querySelector("#my-favorites") as HTMLDivElement
+
+let currentCount = 0
 
 searchInput?.addEventListener("input", async (e: Event) => {
   searchInput.innerHTML = "Product not found"
@@ -78,7 +87,7 @@ export function renderProducts(products: TypeContent[]): void {
   products.forEach((data: TypeContent) => {
     cartRender.innerHTML += `
         <div class="product-card" id="product-card">
-            <div class="heart-cart"><i class="fa-regular fa-heart"></i></div>
+            <div id="heart-cart" class="heart-cart " data-id="${data.id}"><i class="fa-regular fa-heart"></i></div>
             <div class="img-card"> <img src="${data.imageUrl}" alt=""> </div>
             <div class="title">
               <p class="title-product">${data.category}</p>
@@ -95,9 +104,64 @@ export function renderProducts(products: TypeContent[]): void {
         `
   });
 }
+
+cartRender.addEventListener("click", async (e: MouseEvent) => {
+  const target = e.target as HTMLElement
+  const heartBtn = target.closest("#heart-cart")
+  if (heartBtn) {
+    const productId = heartBtn.getAttribute("data-id")
+    if (productId) {
+    await toggleLike(productId)
+    await renderFavorites()
+    }
+  }
+})
+
+export function favoritesCount(): void {
+  currentCount++
+  if (quantityCount) {
+    quantityCount.innerHTML = currentCount.toString()
+  }
+}
+
+async function renderFavorites() {
+  const favoritesCart = document.querySelector("#favorite-content-modal")
+  if(!favoritesCart) return
+  const favProducts = await getFavorites()
+  console.log(favProducts);
+  
+  favoritesCart.innerHTML = ''
+  if(!favProducts || favProducts.length === 0){
+    favoritesCart.innerHTML = `
+      <div class="not-found"> 
+        <p>No favrites yet.</p>
+      </div>
+    `
+  }
+
+  favProducts.forEach((item : FavoriteProduct) => {
+    favoritesCart.innerHTML += `
+      <div class="favorite-content-modal" id="favorite-content-modal">
+        <div class="img-content-modal">
+          <img src="${item.imageUrl}" alt="">
+        </div>
+        <div class="title-content-modal">
+          <div class="content-text-modal">
+            <p>${item.title}</p>
+            <div class="heart-cart"><i class="fa-regular fa-heart"></i></div>
+          </div>
+
+          <p>${item.category}</p>
+
+          <p class="price-modal">$${item.price}</p>
+        </div>
+      </div>
+    `
+  })
+}
+
+
 getProducts()
-
-
 showNewcard?.addEventListener("click", () => {
   showAddModal?.classList.add("show-sell-product")
 })
@@ -126,7 +190,6 @@ allCloseBtn.forEach((button): void => {
     }
   })
 });
-
 function renderLModal(): void {
   showLnRModal.innerHTML = `
     <div class="modal-text">
@@ -182,8 +245,14 @@ function renderLModal(): void {
           boxShadow: "0 4px 12px rgba(0,0,0,0.1)"
         }
       }).showToast();
-      
+      showLnRBtn.classList.add("noactive")
       lnRModal.classList.remove("show-login")
+      profileBtn.classList.add("active")
+      localStorage.setItem("token", token)
+      const loggedInUser = localStorage.getItem("username") || email.split('@')[0];
+      localStorage.setItem("username", loggedInUser);
+      localStorage.setItem("useremail", email)
+      updateAuth(true, loggedInUser);
     } else {
       Toastify({
         text: "Invalid email or password",
@@ -258,6 +327,8 @@ function renderRModal(): void {
         }
       }).showToast();
       renderLModal()
+      localStorage.setItem("token", token)
+      localStorage.setItem("username", nameValue)
     } else {
       Toastify({
         text: "Email already exists!",
@@ -281,27 +352,27 @@ function openModal(): void {
   renderLModal()
 }
 
-profileBtn.addEventListener("click", (e) => {
+profileBtn.addEventListener("click", () => {
   arrow?.classList.add("active")
   profileLogin.classList.add("show-profile")
-  
+
 })
-document.addEventListener("click", (e:MouseEvent) => {
+document.addEventListener("click", (e: MouseEvent) => {
   const target = e.target as HTMLElement
   const clickModal = target.closest(".modal-overlay") as HTMLDivElement
-  if(clickModal) {
+  if (clickModal) {
     const insideCart = target.closest(".profile-modal, .modal-verify, .profile-modal, .modal-content")
-    if(!insideCart){
+    if (!insideCart) {
       clickModal.classList.forEach((className) => {
-        if(className.startsWith("show-")) {
+        if (className.startsWith("show-")) {
           clickModal.classList.remove(className)
         }
-      } )
-    arrow.classList.remove("active")
+      })
+      arrow.classList.remove("active")
     }
   }
-   
-  
+
+
 })
 
 myProducts?.addEventListener("click", () => {
@@ -309,3 +380,129 @@ myProducts?.addEventListener("click", () => {
   beforeLogin.classList.remove("show-profile")
 })
 
+const profileIcon = document.querySelector(".profile-icon")
+const profileName = document.querySelector(".profile-name")
+const userName = document.querySelector("#user-modal")
+const emailName = document.querySelector("#email-modal")
+
+
+
+export const updateAuth = (isLogged: boolean, username: string = "", email: string = "") => {
+  showLnRBtn.classList.toggle("noactive", isLogged)
+  profileBtn.classList.toggle("active", isLogged)
+  if (isLogged && username) {
+    if (profileName) profileName.textContent = username
+    if (profileIcon) profileIcon.textContent = username[0].toUpperCase()
+
+    if (userName) userName.textContent = username
+    if (emailName) emailName.textContent = email
+  }
+}
+
+logoutBtn?.addEventListener("click", () => {
+  localStorage.clear()
+  updateAuth(false)
+  profileLogin.classList.remove("show-profile")
+})
+
+const file = document.querySelector("#file") as HTMLInputElement
+const myProductsPending = document.querySelector("#my-products-pending")
+
+formSell?.addEventListener("submit", async (e: Event) => {
+  e.preventDefault()
+  const formData = new FormData()
+  formData.append("title", (formSell.querySelector("#title") as HTMLInputElement).value)
+  formData.append("category", (formSell.querySelector("#category") as HTMLInputElement).value)
+  formData.append("price", (formSell.querySelector("#price") as HTMLInputElement).value)
+  formData.append("description", (formSell.querySelector("#description") as HTMLInputElement).value)
+  if (file?.files?.[0]) {
+    formData.append("image", file.files[0])
+  }
+  const success = await NewProduct(formData)
+  console.log(success);
+
+  if (success) {
+    Toastify({
+      text: "Product submitted for review!",
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      style: {
+        background: "#2ecc71",
+        borderRadius: "8px",
+        boxShadow: "0 4px 12px rgba(0,0,0,0.1)"
+      }
+    }).showToast();
+    renderMyProducts()
+    formSell.reset()
+    showAddModal.classList.remove("show-sell-product")
+  } else {
+    Toastify({
+      text: "Failed to create product",
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      style: {
+        background: "#e74c3c",
+        borderRadius: "8px"
+      }
+    }).showToast();
+  }
+
+})
+
+async function renderMyProducts() {
+  if (!myProductsPending) return
+  const products = await getMyProducts()
+  myProductsPending.innerHTML = ''
+  if (products.length === 0) {
+    myProductsPending.innerHTML = '<p style="text-align:center;">No products found.</p>'
+    return
+  }
+  products.forEach((item: Product) => {
+    myProductsPending.innerHTML += `
+    <div class="products-content-modal" id="products-${item.id}">
+        <div class="img-content-modal">
+          <img src="${item.imageUrl}" alt="">
+        </div>
+        <div class="title-content-modal fav">
+          <p class="text">${item.title}</p>
+          <p>${item.category} · $${item.price}</p>  
+          <p class="pending-approved" id="verify-product">${item.status}</p>         
+          <div class="product-btns">     
+            <button class="edit"><i class="fa-solid fa-pen"></i><p>Edit</p></button>
+           <button class="delete" data-id="${item.id}"><i class="fa-solid fa-trash"></i><p>Delete</p></button>   
+          </div>
+        </div>
+        </div>
+      `
+  })
+}
+
+
+
+myProductsPending?.addEventListener("click", async (e) => {
+  const target = e.target as HTMLElement
+  const delteBtn = target.closest(".delete") as HTMLElement
+  if(!delteBtn) return 
+  const productId = delteBtn.getAttribute("data-id")
+  if(!productId) return
+  const deleted = await deleteProductId(productId)
+  if(deleted) {
+    const productCart = document.querySelector(`#products-${productId}`)
+    productCart?.remove()
+    Toastify({
+      text: "Deleted!",
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      style: {
+        background: "#e74c3c",
+        borderRadius: "8px",
+        boxShadow: "0 4px 12px rgba(0,0,0,0.1)"
+      }
+    }).showToast();
+  }
+})
+renderMyProducts()
+checkUser()

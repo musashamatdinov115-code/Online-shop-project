@@ -23,20 +23,8 @@
           <i class="fa-solid fa-xmark"></i>
         </div>
       </div>
-      <div class="favorite-content-modal">
-        <div class="img-content-modal">
-          <img src="https://picsum.photos/500" alt="">
-        </div>
-        <div class="title-content-modal">
-          <div class="content-text-modal">
-            <p>Wirelless heaphones pro</p>
-            <div class="heart-cart"><i class="fa-regular fa-heart"></i></div>
-          </div>
-
-          <p>Electronics</p>
-
-          <p class="price-modal">$129.99</p>
-        </div>
+      <div id="favorite-content-modal">
+        <!-- favourite -->
       </div>
     </div>
   </div>
@@ -49,7 +37,7 @@
           <i class="fa-solid fa-xmark"></i>
         </div>
       </div>
-      <div class="favorite-content-modal">
+      <div class="favorite-content-modal" data-id="">
         <div class="img-content-modal">
           <img src="https://picsum.photos/500" alt="">
         </div>
@@ -64,7 +52,7 @@
               <input type="text" class="quantity-count" value="1" readonly>
               <button class="quantity-btn plus-btn"><i class="fa-solid fa-plus"></i></button>
             </div>
-            <div class="delete"><i class="fa-solid fa-trash"></i></div>
+            <div class="delete" data-id=""><i class="fa-solid fa-trash"></i></div>
           </div>
         </div>
 
@@ -92,7 +80,7 @@
     </div>
   </div>
 
-  <div class="modal-overlay" id="products-modal"> <!--show-products-->
+  <div class="modal-overlay " id="products-modal"> <!--show-products-->
     <div class="modal-content">
       <div class="text-modal">
         <p>My products</p>
@@ -100,20 +88,25 @@
           <i class="fa-solid fa-xmark"></i>
         </div>
       </div>
-      <div class="favorite-content-modal">
-        <div class="img-content-modal">
-          <img src="https://picsum.photos/500" alt="">
-        </div>
-        <div class="title-content-modal fav">
-          <p class="text">Smart watch series 8</p>
-          <p>Electronics · $698.00</p>  
-          <p class="pending-approved" id="verify-product">PENDING</p>         
-          <div class="product-btns">     
-            <button class="edit"><i class="fa-solid fa-pen"></i><p>Edit</p></button>
-           <button class="delete"><i class="fa-solid fa-trash"></i><p>Delete</p></button>   
+      <div id="my-products-pending">
+        <div class="products-content-modal">
+          <div class="img-content-modal">
+            <img src="https://picsum.photos/500" alt="">
+          </div>
+          <div class="title-content-modal fav">
+            <p class="text">Smart watch series 8</p>
+            <p>Electronics · $698.00</p>
+            <p class="pending-approved" id="verify-product">PENDING</p>
+            <div class="product-btns">
+              <button class="edit"><i class="fa-solid fa-pen"></i>
+                <p>Edit</p>
+              </button>
+              <button class="delete"><i class="fa-solid fa-trash"></i>
+                <p>Delete</p>
+              </button>
+            </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -135,7 +128,7 @@
       </div>
 
       <div class="login-form">
-        <form class="form-input-login" id="form-input-login">
+        <form class="form-input-login" id="form-input-sell">
           <label for="title">Title</label>
           <input type="text" name="title" id="title" placeholder="Enter product name" required>
 
@@ -188,7 +181,7 @@
             <i class="fa-solid fa-plus"></i>
           </button>
           <button class="heart" id="my-favorites">
-            <p>0</p>
+            <p id="quantity-count">0</p>
             <i class="fa-regular fa-heart"></i>
           </button>
           <button class="shopping" id="shop-product">
@@ -203,8 +196,8 @@
           </button>
           <button class="btn-profile" id="profile-button">
             <div class="profile-before">
-              <p id="profile-icon" class="profile-icon">M</p>
-              <p id="profile-name" class="profile-name">Mark</p>
+              <p id="profile-icon" class="profile-icon"></p>
+              <p id="profile-name" class="profile-name"></p>
               <div class="arrow-icon" id="arrow-icon">
                 <i class="fa-solid fa-angle-up"></i>
               </div>
@@ -213,8 +206,8 @@
           <div class="modal-overlay" id="before-login"> <!-- show-profile -->
             <div class="profile-modal">
               <div class="name-modal">
-                <p class="user">Mark</p>
-                <p class="email">mark@gmail.com</p>
+                <p class="user" id="user-modal"></p>
+                <p class="email" id="email-modal"></p>
               </div>
               <div class="profile-info">
                 <div class="my-products" id="my-products">

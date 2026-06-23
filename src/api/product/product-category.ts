@@ -1,6 +1,6 @@
-import { renderProducts } from "../main";
-import type { TypeCategories, TypeCategory } from "../utils/types";
-import { apiClient } from "./api";
+import { renderProducts } from "../../main";
+import type { TypeCategories, TypeCategory } from "../../utils/types";
+import { apiClient } from "../api";
 
 
 export async function getCategories(): Promise<string[]> {

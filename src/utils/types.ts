@@ -38,3 +38,29 @@ export interface TypeCategories {
         total: number;
     };
 }
+
+export interface Product {
+    id: string,
+    title: string,
+    category: string,
+    price: number,
+    imageUrl: string,
+    status: 'PENDING' | 'APPROVED' | 'REJECTED'
+}
+
+export interface DeleteId {
+    id : string
+}
+
+export interface FavoriteProduct {
+    id: string,
+    title?: string,
+    price: number,
+    category: string,
+    imageUrl?: string
+}
+
+export interface FavoritesResponse {
+    success: boolean,
+    data: FavoriteProduct[]
+}

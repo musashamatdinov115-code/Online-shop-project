@@ -1,6 +1,6 @@
 import type { AxiosResponse } from "axios";
-import type { TypeContent } from "../utils/types";
-import { apiClient } from "./api";
+import { apiClient } from "../api";
+import type { TypeContent } from "../../utils/types";
 
 
 export async function getApiProducts(): Promise<TypeContent[]> {

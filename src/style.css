@@ -124,7 +124,8 @@ input {
 }
 
 .login {
-  display: flex; /*flex boladi*/
+  display: flex;
+  /*flex boladi*/
   align-items: center;
   gap: 5px;
   padding: 9px 10px;
@@ -134,23 +135,31 @@ input {
   transition: all .1s ease-in;
 }
 
+.login.noactive {
+  display: none;
+}
+
 .btn-profile {
   display: none;
+}
+
+.btn-profile.active {
+  display: flex;
   gap: 5px;
-  padding: 5px 10px;
+  padding: 4px 10px;
   border: 1px solid var(--primary);
   border-radius: 8px;
   cursor: pointer;
   transition: all .1s ease-in;
 }
 
-.profile-before{
+.profile-before {
   display: flex;
   gap: 5px;
   align-items: center;
 }
 
-.profile-icon{
+.profile-icon {
   border-radius: 50%;
   padding: 5px 7px;
   color: white;
@@ -169,11 +178,11 @@ input {
   transition: all .3s ease-in-out;
 }
 
-.arrow-icon.active{
+.arrow-icon.active {
   rotate: 180deg;
 }
 
-.profile-modal{
+.profile-modal {
   position: absolute;
   background-color: white;
   border-radius: 8px;
@@ -192,7 +201,7 @@ input {
   flex-direction: column;
   gap: 5px;
   border-bottom: 1px solid var(--primary);
-  cursor:context-menu;
+  cursor: context-menu;
 }
 
 .name-modal .user {
@@ -205,7 +214,7 @@ input {
   color: rgba(100, 98, 98, 0.674);
 }
 
-.profile-info{
+.profile-info {
   display: flex;
   flex-direction: column;
   margin-top: 10px;
@@ -327,12 +336,12 @@ h3 {
 }
 
 @keyframes fadeInUp {
-  from{
+  from {
     opacity: 0;
     transform: translateY(20px);
   }
 
-  to{
+  to {
     opacity: 1;
     transform: translateY(0);
   }
@@ -433,7 +442,7 @@ h3 {
     font-size: 12px;
   }
 
-  
+
 }
 
 @media only screen and (max-width: 705px) {
@@ -508,8 +517,8 @@ h3 {
   }
 }
 
-@media only screen and (max-width: 439px){
-  .profile-modal{
+@media only screen and (max-width: 439px) {
+  .profile-modal {
     top: 100px;
   }
 }
@@ -661,6 +670,16 @@ footer {
   position: relative;
 }
 
+.products-content-modal {
+  display: flex;
+  padding: 10px;
+  gap: 20px;
+  border: 1px solid var(--primary);
+  margin: 10px 20px 0px 20px;
+  border-radius: 6px;
+  position: relative;
+}
+
 .img-content-modal {
   width: 60px;
   height: 60px;
@@ -669,19 +688,20 @@ footer {
 .img-content-modal img {
   border-radius: 5px;
   cursor: pointer;
+  height: 60px;
 }
 
 .fav {
   position: relative;
 }
 
-.title-content-modal .content-text-modal .heart-cart {
+/* .title-content-modal .content-text-modal  {
   width: 30px;
   background-color: rgb(254, 242, 242);
   border-color: rgba(255, 0, 0, 0.425);
-}
+} */
 
-.title-content-modal .content-text-modal .heart-cart i {
+.title-content-modal .content-text-modal  i {
   color: red;
   font-weight: 900;
 }
@@ -923,7 +943,7 @@ label i {
 .product-btns .edit:hover {
   border-color: #4F46E5;
   color: #4F46E5;
-} 
+}
 
 .product-btns .delete:hover {
   border-color: red;
