@@ -1,13 +1,14 @@
 import { getMyProducts, NewProduct } from "./api/product/new-product";
 import { apiClient } from "./api/api";
 import { loginPost, registerPost } from "./api/auth/auth";
-import { getFavorites, toggleLike } from "./api/favorites/favorites";
+import { deleteFavorites, getFavorites, toggleLike } from "./api/favorites/favorites";
 import { getCategories, getcategory } from "./api/product/product-category";
 import { checkUser, getProducts } from "./api/other/utils";
-import type { FavoriteProduct, Product, TypeContent } from "./utils/types";
+import type { CartItem, FavoriteProduct, Product, TypeContent } from "./utils/types";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 import { deleteProductId } from "./api/product/delete-product";
+import { addToCart, getCartProducts } from "./api/product/addCart";
 
 
 
@@ -83,6 +84,7 @@ export function renderProducts(products: TypeContent[]): void {
         <p>Product not found</p>
       </div>
     `
+    return
   }
   products.forEach((data: TypeContent) => {
     cartRender.innerHTML += `
@@ -96,7 +98,7 @@ export function renderProducts(products: TypeContent[]): void {
                 <p class="price">$${data.price}</p>
                 <button class="btn btn-add">
                   <div class="select"><i class="fa-solid fa-cart-plus"></i></div>
-                  <p class="add">Add to cart</p>
+                  <p class="add" data-id="${data.id}">Add to cart</p>
                 </button>
               </div>
             </div>
@@ -108,47 +110,102 @@ export function renderProducts(products: TypeContent[]): void {
 cartRender.addEventListener("click", async (e: MouseEvent) => {
   const target = e.target as HTMLElement
   const heartBtn = target.closest("#heart-cart")
-  if (heartBtn) {
-    const productId = heartBtn.getAttribute("data-id")
-    if (productId) {
-    await toggleLike(productId)
-    await renderFavorites()
-    }
+  if (!heartBtn) return
+  const productId = heartBtn.getAttribute("data-id")
+  const icon = heartBtn.querySelector("i")
+  if (!productId || !icon) return
+  if (icon.classList.contains("fa-regular")) {
+    await handleLike(productId, icon)
+  } else {
+    await handleDislike(productId, icon)
   }
+
+  await renderFavorites()
 })
 
-export function favoritesCount(): void {
-  currentCount++
-  if (quantityCount) {
-    quantityCount.innerHTML = currentCount.toString()
+async function init() {
+  const currentFavorites = await renderFavorites()
+  await getProducts()
+  if (currentFavorites) {
+    const favIds = currentFavorites.map((item: any) => item.id);
+    document.querySelectorAll(".heart-cart").forEach((btn) => {
+      const id = btn.getAttribute("data-id");
+      if (id && favIds.includes(id)) {
+        const icon = btn.querySelector("i");
+        if (icon) {
+          icon.classList.replace("fa-regular", "fa-solid");
+          icon.style.color = "red";
+        }
+      }
+    })
   }
 }
+init()
+async function handleLike(productId: string, icon: HTMLElement) {
+  await toggleLike(productId)
+  if (quantityCount) quantityCount.innerHTML = currentCount.toString()
+  icon.classList.replace("fa-regular", "fa-solid")
+  icon.style.color = "red"
+  currentCount++
+}
+async function handleDislike(productId: string, icon: HTMLElement) {
+  await deleteFavorites(productId)
+  if (quantityCount) quantityCount.innerHTML = currentCount.toString()
+  icon.classList.replace("fa-solid", "fa-regular")
+  icon.style.color = ""
+  currentCount--
+}
+
+const favoritesModal = document.querySelector("#favorite-content-modal") as HTMLDivElement
+
+if (favoritesModal) {
+  favoritesModal.addEventListener("click", async (e: MouseEvent) => {
+    const target = e.target as HTMLElement
+    const favHeartBtn = target.closest("#fav-heart-btn")
+    if (!favHeartBtn) return
+    const productId = favHeartBtn.getAttribute("data-id")
+    if (!productId) return
+    await deleteFavorites(productId)
+    const mainIcon = document.querySelector(`#grid-card #heart-cart[data-id="${productId}"] i`)
+    if (mainIcon) {
+      mainIcon.classList.replace("fa-solid", "fa-regular");
+      (mainIcon as HTMLElement).style.color = ""
+    }
+    await renderFavorites()
+  });
+}
+
+
 
 async function renderFavorites() {
   const favoritesCart = document.querySelector("#favorite-content-modal")
-  if(!favoritesCart) return
+  if (!favoritesCart) return []
   const favProducts = await getFavorites()
-  console.log(favProducts);
-  
   favoritesCart.innerHTML = ''
-  if(!favProducts || favProducts.length === 0){
+  currentCount = favProducts.length
+  if (favProducts.length === 0) {
     favoritesCart.innerHTML = `
-      <div class="not-found"> 
-        <p>No favrites yet.</p>
+      <div class="not-favorites"> 
+        <p>No fav0rites yet.</p>
       </div>
     `
+    if (quantityCount) quantityCount.innerHTML = "0"
+    return favProducts
+  }
+  if (quantityCount) {
+    quantityCount.innerHTML = currentCount.toString();
   }
 
-  favProducts.forEach((item : FavoriteProduct) => {
+  favProducts.forEach((item: FavoriteProduct) => {
     favoritesCart.innerHTML += `
-      <div class="favorite-content-modal" id="favorite-content-modal">
+      <div class="favorite-content-modal" id="fav-${item.id}">
         <div class="img-content-modal">
           <img src="${item.imageUrl}" alt="">
         </div>
         <div class="title-content-modal">
           <div class="content-text-modal">
             <p>${item.title}</p>
-            <div class="heart-cart"><i class="fa-regular fa-heart"></i></div>
+            <div class="heart-cart" id="fav-heart-btn" data-id="${item.id}"><i class="fa-regular fa-heart"></i></div>
           </div>
 
           <p>${item.category}</p>
@@ -158,10 +215,8 @@ async function renderFavorites() {
       </div>
     `
   })
+  return favProducts
 }
-
-
-getProducts()
 showNewcard?.addEventListener("click", () => {
   showAddModal?.classList.add("show-sell-product")
 })
@@ -484,11 +539,11 @@ async function renderMyProducts() {
 myProductsPending?.addEventListener("click", async (e) => {
   const target = e.target as HTMLElement
   const delteBtn = target.closest(".delete") as HTMLElement
-  if(!delteBtn) return 
+  if (!delteBtn) return
   const productId = delteBtn.getAttribute("data-id")
-  if(!productId) return
+  if (!productId) return
   const deleted = await deleteProductId(productId)
-  if(deleted) {
+  if (deleted) {
     const productCart = document.querySelector(`#products-${productId}`)
     productCart?.remove()
     Toastify({
@@ -506,3 +561,52 @@ myProductsPending?.addEventListener("click", async (e) => {
 })
 renderMyProducts()
 checkUser()
+getProducts()
+
+cartRender.addEventListener("click", async (e : MouseEvent) => {
+  const target = e.target as HTMLElement
+
+  const addBtn = target.closest(".add")
+  if(!addBtn) return
+  const productId = addBtn.getAttribute("data-id")
+  if (!productId) return
+  await addToCart(productId)
+  await renderCart()
+})
+
+async function renderCart() : Promise<void> {
+  const cartModal = document.querySelector("#modal-cart")
+  if(!cartModal) return
+  const cartProducts = await getCartProducts()
+  cartModal.innerHTML = ""
+  let totalPrice = 0
+  cartProducts.forEach((item : CartItem) => {
+    totalPrice += item.product.price * item.qty
+
+    cartModal.innerHTML += `
+      <div class="favorite-content-modal" data-id="${item.product.id}">
+          <div class="img-content-modal">
+            <img src="${item.product.imageUrl}" alt="">
+          </div>
+          <div class="title-content-modal fav">
+            <p class="text">${item.product.title}</p>
+            <p>Electronics</p>
+            <p class="price-modal">$${(item.product.price * item.qty).toFixed(2)}</p>
+
+            <div class="df-card">
+              <div class="plus-minus" data-id="${item.product.id}">
+                <button class="quantity-btn minus-btn"><i class="fa-solid fa-minus"></i></button>
+                <input type="text" class="quantity-count" value="${item.qty}" readonly>
+                <button class="quantity-btn plus-btn"><i class="fa-solid fa-plus"></i></button>
+              </div>
+              <div class="delete" data-id=""><i class="fa-solid fa-trash"></i></div>
+            </div>
+          </div>
+        </div>
+    `
+  })
+  const totalElement = document.querySelector("#total-price");
+    if (totalElement) totalElement.innerHTML = `$${totalPrice.toFixed(2)}`
+}
+
+getCartProducts()

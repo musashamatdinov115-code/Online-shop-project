@@ -367,11 +367,6 @@ h3 {
   border-color: rgba(255, 0, 0, 0.425);
 }
 
-.product-card .heart-cart:active i::before {
-  font-weight: 900;
-  color: red;
-}
-
 .title {
   padding: 13px;
   height: 130px;
@@ -670,6 +665,48 @@ footer {
   position: relative;
 }
 
+.modal-cart {
+  height: calc(100vh - 200px);
+}
+
+.checout-cart {
+  border-top: 1px solid gray;
+  padding: 20px;
+}
+
+.total-price {
+  display: flex;
+  justify-content: space-between;
+}
+
+.total-price .price {
+  color: blue;
+  font-size: 17px;
+}
+
+.checout-btn {
+  margin-top: 10px;
+}
+
+.checout-btn  button {
+  padding: 15px;
+  background-color: var(--secondary);
+  width: 100%;
+  border-radius: 9px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.checout-btn  button:hover {
+    background-color: #0400fffd;
+}
+
+.checout-btn  button:active {
+    transform: scale(.99);
+}
+
 .products-content-modal {
   display: flex;
   padding: 10px;
@@ -694,12 +731,6 @@ footer {
 .fav {
   position: relative;
 }
-
-/* .title-content-modal .content-text-modal  {
-  width: 30px;
-  background-color: rgb(254, 242, 242);
-  border-color: rgba(255, 0, 0, 0.425);
-} */
 
 .title-content-modal .content-text-modal  i {
   color: red;
