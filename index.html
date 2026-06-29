@@ -38,17 +38,17 @@
         </div>
       </div>
       <div class="modal-cart" id="modal-cart">
-        
+        <!-- products -->
       </div>
       <div class="checout-cart">
-            <div class="total-price">
-              <p class="total">Total:</p>
-              <p class="price" id="total-price">$777.60</p>
-            </div>
-            <div class="checout-btn">
-              <button class="btn-checout"><i class="fa-solid fa-credit-card"></i> Checout</button>
-            </div>
-          </div>
+        <div class="total-price">
+          <p class="total">Total:</p>
+          <p class="price" id="total-price">$0</p>
+        </div>
+        <div class="checout-btn">
+          <button class="btn-checout"><i class="fa-solid fa-credit-card"></i> Checout</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -61,28 +61,10 @@
         </div>
       </div>
       <div id="my-products-pending">
-        <div class="products-content-modal">
-          <div class="img-content-modal">
-            <img src="https://picsum.photos/500" alt="">
-          </div>
-          <div class="title-content-modal fav">
-            <p class="text">Smart watch series 8</p>
-            <p>Electronics · $698.00</p>
-            <p class="pending-approved" id="verify-product">PENDING</p>
-            <div class="product-btns">
-              <button class="edit"><i class="fa-solid fa-pen"></i>
-                <p>Edit</p>
-              </button>
-              <button class="delete"><i class="fa-solid fa-trash"></i>
-                <p>Delete</p>
-              </button>
-            </div>
-          </div>
-        </div>
+        <!-- pending products -->
       </div>
     </div>
   </div>
-
   <div class="modal-overlay" id="LnR-modal"> <!--show-LnR-->
     <div class="modal-verify " id="modal-verify">
       <!-- login and register -->
@@ -120,11 +102,15 @@
 
           <p>Image</p>
           <input type="file" class="file-upload" name="file" id="file" required>
-          <label for="file"><i class="fa-solid fa-cloud-arrow-up"></i>
-            <p> Click to upload an image</p>
-          </label>
+          <div class="image-upload-container">
+            <input type="file" id="file" hidden>
+            <label for="file" id="upload-box" class="upload-label">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <span>Click to upload an image</span>
+            </label>
+          </div>
 
-          <button class="login-btn">Submit for review</button>
+          <button id="submit-btn" type="submit" class="login-btn">Submit for review</button>
           <div class="account">
             <p>An admin will review it before it goes live.</p>
           </div>
@@ -157,7 +143,7 @@
             <i class="fa-regular fa-heart"></i>
           </button>
           <button class="shopping" id="shop-product">
-            <p>0</p>
+            <p id="count-cart">0</p>
             <i class="fa-solid fa-cart-shopping"></i>
           </button>
           <button class="login" id="login-user">

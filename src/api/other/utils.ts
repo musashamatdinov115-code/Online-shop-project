@@ -5,11 +5,12 @@ import { getApiProducts } from "../product/products";
 export async function getProducts() {
   try {
     const data = await getApiProducts()
-    renderProducts(data);
-
+    if (data) {
+      await renderProducts(data)
+    }
   } catch (error) {
-    console.log(error);
-
+    console.log("getProducts ishınde dynamic qátelık:", error)
+    await renderProducts([])
   }
 }
 

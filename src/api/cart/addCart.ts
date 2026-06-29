@@ -14,9 +14,9 @@ export async function getCartProducts() : Promise<CartItem[]> {
     }
 }
 
-export async function addToCart(productId: string) {
+export async function addToCart(productId: string, qty: number = 1) : Promise<void> {
     try {
-        await apiClient.post(`/cart/${productId}`)
+        await apiClient.post(`/cart/${productId}`, {qty})
     } catch (error) {
         console.error(error)
     }
@@ -24,7 +24,7 @@ export async function addToCart(productId: string) {
 
 export async function updateCartQuantity(productId: string, quantity: number) : Promise<void> {
     try {
-        await apiClient.patch(`/api/cart/${productId}`, { quantity })
+        await apiClient.patch(`/cart/${productId}`, { quantity })
     } catch (error) {
         console.error(error)
     }

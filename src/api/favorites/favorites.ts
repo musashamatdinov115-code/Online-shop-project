@@ -13,7 +13,6 @@ export async function getFavorites() : Promise<FavoriteProduct[]> {
 export async function toggleLike(productId : string) : Promise<void> {
     const res = await apiClient.post(`/favorites/${productId}`, {})
     if(res.status === 200 || res.status === 201) {
-        console.log("product liked Id:",productId);
         getFavorites()
     }    
 }

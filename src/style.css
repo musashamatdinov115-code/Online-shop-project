@@ -629,7 +629,7 @@ footer {
   border-bottom: 1px solid var(--primary);
 }
 
-.text-modal p {
+.login .text-modal p {
   font-weight: 600;
   font-size: 20px;
 }
@@ -667,11 +667,15 @@ footer {
 
 .modal-cart {
   height: calc(100vh - 200px);
+  overflow-y: auto;
+  padding-bottom: 10px;
 }
 
 .checout-cart {
   border-top: 1px solid gray;
   padding: 20px;
+  background-color: white;
+  z-index: 1;
 }
 
 .total-price {
@@ -688,7 +692,7 @@ footer {
   margin-top: 10px;
 }
 
-.checout-btn  button {
+.checout-btn button {
   padding: 15px;
   background-color: var(--secondary);
   width: 100%;
@@ -699,12 +703,12 @@ footer {
   transition: all 0.2s ease-in-out;
 }
 
-.checout-btn  button:hover {
-    background-color: #0400fffd;
+.checout-btn button:hover {
+  background-color: #0400fffd;
 }
 
-.checout-btn  button:active {
-    transform: scale(.99);
+.checout-btn button:active {
+  transform: scale(.99);
 }
 
 .products-content-modal {
@@ -730,9 +734,10 @@ footer {
 
 .fav {
   position: relative;
+  flex: 1;
 }
 
-.title-content-modal .content-text-modal  i {
+.title-content-modal .content-text-modal i {
   color: red;
   font-weight: 900;
 }
@@ -764,7 +769,7 @@ footer {
   background-color: #FEF3C7;
   color: #B45309;
   font-weight: 600;
-  width: 45%;
+  width: 27%;
   font-size: 12px;
 }
 
@@ -772,6 +777,7 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 
 .plus-minus {
@@ -814,7 +820,17 @@ footer {
   background: transparent;
 }
 
-.df-card .delete {
+.cart-content-modal {
+  display: flex;
+  padding: 10px;
+  gap: 20px;
+  border: 1px solid var(--primary);
+  margin: 10px 20px 0px 20px;
+  border-radius: 6px;
+  position: relative;
+}
+
+.cart-content-modal .df-card .delete {
   border: 1px solid var(--primary);
   display: inline-flex;
   align-items: center;
@@ -824,7 +840,7 @@ footer {
   background-color: aliceblue;
   position: absolute;
   bottom: 0px;
-  right: -90px;
+  right: 0px;
   cursor: pointer;
   color: rgb(107, 123, 136);
 }
@@ -866,6 +882,7 @@ input {
   margin-top: 5px;
 }
 
+.checout-cart .delete,
 .login-btn {
   width: 100%;
   padding: 13px 0;
@@ -930,7 +947,6 @@ label[for="file"] {
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
   align-items: center;
   padding: 25px;
   margin-top: 5px;
@@ -948,9 +964,16 @@ label i {
   left: 45%;
 }
 
-.not-found p {
+.not-found p,
+.not-favorites p {
   font-size: 20px;
   color: gray;
+}
+
+.not-favorites {
+  position: absolute;
+  top: 30%;
+  left: 33%;
 }
 
 .product-btns {
